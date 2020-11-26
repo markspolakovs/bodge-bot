@@ -71,7 +71,7 @@ class GameChannel(object):
                             if not state.mute:
                                 should_be_muted = True
                             if not state.deaf:
-                                should_be_deafened = True
+                                should_be_deafened = False
                         else:
                             if state.mute:
                                 should_be_muted = False
@@ -127,9 +127,13 @@ class GameChannel(object):
             # not a commentator
             if member_id in self.commentators:
                 self.commentators.remove(member_id)
+        removed = set()
         for comm_id in self.commentators:
             if comm_id not in self.chan.voice_states:
-                self.commentators.remove(comm_id)
+                # left channel
+                removed.add(comm_id)
+        for comm_id in removed:
+            self.commentators.remove(comm_id)
 
     async def on_voice_state_update(self, member: discord.Member, before: discord.VoiceState,
                                     after: discord.VoiceState) -> None:

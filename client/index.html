@@ -119,7 +119,6 @@
                                 ${
                                     (!gameState?.commentators.includes(m.id)) &&
                                       gameState?.gameRunning &&
-                                      !gameState?.isMeeting &&
                                         (gameState?.dead.includes(m.id)
                                           ? html`<button class="btn btn-outline-danger" onClick=${() => unkill(m.id)}>Unkill</button>`
                                           : html`<button class="btn btn-danger" onClick=${() => kill(m.id)}>Kill</button>`
